@@ -1,0 +1,36 @@
+.tableContainer {
+
+    max-width: 1256px;
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: center;
+
+}
+
+.theader {
+
+    width: 100%;
+
+}
+
+.theaderRow {
+
+    th {
+        color: var(--black-color);
+        background: var(--secondary-color);
+    }
+
+    th:first-child {
+        border-top-left-radius: .8rem;
+    }
+
+    th:last-child {
+        border-top-right-radius: .8rem;
+    }
+
+}
+
+table tr:nth-child(odd) {
+    background-color: #0f2d45;
+}

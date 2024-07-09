@@ -1,14 +1,17 @@
 import { useEffect } from "react"
-import { BranchInput } from "./InputSection/BranchInput"
-import { EmployeeInput } from "./InputSection/EmployeeInput"
-import { OccupationInput } from "./InputSection/OccupationInput"
-import { LeaderInput } from "./InputSection/LeaderInput"
-import { SalaryInput } from "./InputSection/SalaryInput"
-import { OvertimeInput } from "./InputSection/OvertimeInput"
-import { JustificationInput } from "./InputSection/JustificationInput"
+import { BranchInput } from "./InputSection/BranchInput/BranchInput"
+import { EmployeeInput } from "./InputSection/EmployeeInput/EmployeeInput"
+import { OccupationInput } from "./InputSection/OccupationInput/OccupationInput"
+import { LeaderInput } from "./InputSection/LeaderInput/LeaderInput"
+import { SalaryInput } from "./InputSection/SalaryInput/SalaryInput"
+import { OvertimeInput } from "./InputSection/OvertimeInput/OvertimeInput"
+import { JustificationInput } from "./InputSection/JustificationInput/JustificationInput"
 
 export function FormSection({ 
 
+    // ===== PROPS RECEIVED FROM USESTATE =====
+
+    handleClick,
     EmployeeList,
     branch, setBranch, 
     filteredEmployees, setFilteredEmployees, 
@@ -24,6 +27,8 @@ export function FormSection({
     
 }) {
 
+    // ===== HANDLES EMPLOYEELIST WITHOUT RE-RENDERING =====
+
     useEffect(() => {
 
         if (branch === "") {
@@ -38,6 +43,8 @@ export function FormSection({
         }
 
     }, [branch])
+
+    // ===== HANDLES OCCUPATION AUTO-FILL WITHOUT RE-RENDERING =====
 
     useEffect(() => {
 
@@ -62,6 +69,8 @@ export function FormSection({
 
     }, [employee, filteredEmployees])
 
+    // ===== HANDLES LEADER AUTO-FILL WITHOUT RE-RENDERING =====
+    
     useEffect(() => {
 
         if (employee === "") {
@@ -84,38 +93,34 @@ export function FormSection({
         }
     })
 
-    const handleClick = (e) => {
-
-        e.preventDefault()
-
-    }
+    // ===== JSX =====
 
     return(
         <section>
-            <form>
-                <div>
-                    <div>
+            <form className="container form flex-col around">
+                <div className="grid">
+                    <div className="inputBox flex-col between">
                         <BranchInput setBranch={setBranch} branch={branch} />
                         <EmployeeInput EmployeeList={filteredEmployees} setEmployee={setEmployee} />
                     </div>
-                    <div>
+                    <div className="inputBox flex-col between">
                         <OccupationInput occupation={occupation} />
                         <LeaderInput leaderName={leader} />
                     </div>
-                    <div>
+                    <div className="inputBox flex-col between">
                         <SalaryInput salary={salary} setSalary={setSalary} />
                         <OvertimeInput title="Hora Extra a 65%" hrs={otHours65} mins={otMin65} setHr={setOtHours65} setMin={setOtMin65} />
                     </div>
-                    <div>
+                    <div className="inputBox flex-col between">
                         <OvertimeInput title="Hora Extra a 85%" hrs={otHours85} mins={otMin85} setHr={setOtHours85} setMin={setOtMin85} />
                         <OvertimeInput title="Hora Extra a 100%" hrs={otHours100} mins={otMin100} setHr={setOtHours100} setMin={setOtMin100} />
                     </div>
-                    <div>
+                    <div className="inputBox flex-col between">
                         <OvertimeInput title="Adicional Noturno" hrs={nightShiftHours} mins={nightShiftMin} setHr={setNightShiftHours} setMin={setNightShiftMin} />
                         <JustificationInput justification={justification} setJustification={setJustification} />
                     </div>
                 </div>
-                <button onClick={handleClick}>
+                <button className="btn formbtn text1" onClick={handleClick}>
                     Calcular
                 </button>
             </form>

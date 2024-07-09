@@ -1,20 +1,10 @@
-export function RenderSection({
+import { TableSection } from "./TableSection/TableSection";
 
-    employee,
-    occupation,
-    branch,
-    leader,
-    salary,
-    justification,
-    CalculateOvertime
-    
- }) {
+export function RenderSection({ tableArray }) {
 
     return(
         <section>
-            <table>
-
-            </table>
+            <TableSection tableArray={tableArray} />
         </section>
     )
 }

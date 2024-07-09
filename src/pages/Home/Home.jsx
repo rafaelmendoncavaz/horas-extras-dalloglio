@@ -7,6 +7,8 @@ import { CalculateOvertime } from "../../scripts/CalculateOvertime"
 
 export function Home() {
 
+    // ===== INPUT STATES =====
+
     const [branch, setBranch] = useState("")
     const [filteredEmployees, setFilteredEmployees] = useState(EmployeeList)
     const [employee, setEmployee] = useState("")
@@ -23,9 +25,70 @@ export function Home() {
     const [nightShiftMin, setNightShiftMin] = useState("")
     const [justification, setJustification] = useState("")
 
+    const [tableArray, setTableArray] = useState([])
+
+    // ===== HANDLING CLICK EVENT (FORM) =====
+
+    const handleClick = (e) => {
+
+        e.preventDefault()
+
+        // ===== CALCULATE TOTAL DUE OVERTIME =====
+
+        const ot65 = CalculateOvertime(Number(otHours65), Number(otMin65), Number(salary), 0.65)
+        const ot85 = CalculateOvertime(Number(otHours85), Number(otMin85), Number(salary), 0.85)
+        const ot100 = CalculateOvertime(Number(otHours100), Number(otMin100), Number(salary), 1)
+        const totalDue = (ot65 + ot85 + ot100).toLocaleString("pt-BR", {style: "currency", currency: "BRL"})
+
+        // ===== DATA SENT TO RENDERSECTION =====
+
+        const data = {
+            branch,
+            employee,
+            occupation,
+            leader,
+            salary,
+            otHours65,
+            otMin65,
+            otHours85,
+            otMin85,
+            otHours100,
+            otMin100,
+            nightShiftHours,
+            nightShiftMin,
+            justification,
+            date: Date.now(),
+            overtimeDue: totalDue
+        }
+
+        setTableArray([data, ...tableArray])
+
+        // ===== REST INPUTS =====
+
+        setBranch("")
+        setFilteredEmployees(EmployeeList)
+        setEmployee("")
+        setOccupation("")
+        setLeader("")
+        setSalary("")
+        setOtHours65("")
+        setOtMin65("")
+        setOtHours85("")
+        setOtMin85("")
+        setOtHours100("")
+        setOtMin100("")
+        setNightShiftHours("")
+        setNightShiftMin("")
+        setJustification("")
+
+    }
+
+    // ===== JSX =====
+
     return(
         <DefaultTemplate>
-            <FormSection 
+            <FormSection
+            handleClick={handleClick} 
             EmployeeList={EmployeeList}
             branch={branch} 
             setBranch={setBranch}
@@ -59,13 +122,8 @@ export function Home() {
             setJustification={setJustification}
              />
             <RenderSection
-            employee={employee}
-            occupation={occupation}
-            branch={branch}
-            leader={leader}
-            salary={salary}
-            justification={justification}
             CalculateOvertime={CalculateOvertime}
+            tableArray={tableArray}
              />
         </DefaultTemplate>
     )

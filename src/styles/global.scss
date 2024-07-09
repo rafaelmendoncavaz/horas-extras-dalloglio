@@ -1,0 +1,32 @@
+:root {
+
+    --primary-color: #0f2d45;
+    --secondary-color: #feac22;
+    --black-color: #000000;
+    --white-color: #ffffff;
+
+    --font-title: "Poppins", sans-serif;
+    --font-text: "Open Sans", sans-serif;
+
+    font-size: 62.5%;
+
+}
+
+#root {
+
+    height: 100vh;
+
+}
+
+body {
+
+    background-color: var(--primary-color);
+
+}
+
+body * {
+
+    box-sizing: border-box;
+    color: var(--white-color);
+
+}
